@@ -8,7 +8,7 @@ export class ApiError extends Error {
   }
 }
 
-// Mensaje legible, incluyendo los detalles de validación del backend
+
 export const mensajeError = (e) =>
   e?.detalles?.length ? e.detalles.map((d) => d.mensaje).join('. ') : e?.message || 'Ocurrió un error inesperado';
 
