@@ -4,8 +4,8 @@ let temporizador;
 
 export const useUiStore = defineStore('ui', {
   state: () => ({
-    detalle: null, // { id, tab }
-    refresh: 0, // se incrementa para recargar listas
+    detalle: null,
+    refresh: 0,
     toast: null,
     modalTicket: false,
     modalCorreo: false,
@@ -14,6 +14,7 @@ export const useUiStore = defineStore('ui', {
     panelVistas: window.innerWidth > 760,
     tituloVista: 'Tickets',
     totalVista: null,
+    isDark: localStorage.getItem('theme') === 'dark',
   }),
   actions: {
     abrirDetalle(id, tab = 'detalle') {
@@ -30,5 +31,20 @@ export const useUiStore = defineStore('ui', {
       clearTimeout(temporizador);
       temporizador = setTimeout(() => (this.toast = null), 3500);
     },
+    toggleDarkMode() {
+      this.isDark = !this.isDark;
+      if (this.isDark) {
+        document.documentElement.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+      }
+    },
+    initTema() {
+      if (this.isDark) {
+        document.documentElement.classList.add('dark');
+      }
+    }
   },
 });
